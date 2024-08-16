@@ -5,7 +5,12 @@
 <div id="video-youtube" style="display: block; margin: auto;"></div>
 <br>
 <button id="update-button" style="display: block; margin: auto; padding: 20px 40px; font-size: 24px; font-weight: bold; background-color: #FF0000; color: white; border: none; cursor: pointer; border-radius: 8px; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#CC0000'" onmouseout="this.style.backgroundColor='#FF0000'"">Play the playlist</button>
-<p style="margin-top: 20px; font-size: 24px; color: #666;">Note: skipping past the end point of the current video snippet will break the playlist functionality.</p>
+<br>
+<div style="display: flex; justify-content: center; align-items: center;">
+    <div id="previous-button" style="font-size: 48px; cursor: pointer; margin: 0 10px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">⏮️</div>
+    <div id="next-button" style="font-size: 48px; cursor: pointer; margin: 0 10px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">⏭️</div>
+</div>
+<p style="text-align: center; margin-top: 20px; font-size: 24px; color: #666;">For a complete experience please avoid skipping</p>
 
 <script id="youtube-tracking-script">
 
@@ -109,6 +114,35 @@
                     'endSeconds': playList[currentId].end
                 });
             }
+        }
+    }
+
+
+    var nextButton = document.getElementById('next-button');
+    nextButton.addEventListener('click', goToNext);
+
+    var previousButton = document.getElementById('previous-button');
+    previousButton.addEventListener('click', goToPrevious);
+
+    function goToNext(){
+        currentId++;
+        if ( playList[currentId] ) {
+            player.loadVideoById({
+                'videoId': playList[currentId].videoId,
+                'startSeconds': playList[currentId].start,
+                'endSeconds': playList[currentId].end
+            });
+        }
+    }
+
+    function goToPrevious(){
+        currentId--;
+        if ( playList[currentId] ) {
+            player.loadVideoById({
+                'videoId': playList[currentId].videoId,
+                'startSeconds': playList[currentId].start,
+                'endSeconds': playList[currentId].end
+            });
         }
     }
 </script>
