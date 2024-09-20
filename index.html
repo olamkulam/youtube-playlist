@@ -2,13 +2,13 @@
 <body>
 <a href="https://github.com/olamkulam/youtube-playlist/">Github Repository</a>
 <br>
-<div id="video-youtube" style="display: block; margin: auto;"></div>
+<div id="video-youtube" style="display: block; margin: auto; opacity: 0.5; pointer-events: none;"></div>
 <br>
-<button id="update-button" style="display: block; margin: auto; padding: 20px 40px; font-size: 24px; font-weight: bold; background-color: #FF0000; color: white; border: none; cursor: pointer; border-radius: 8px; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#CC0000'" onmouseout="this.style.backgroundColor='#FF0000'"">Play the playlist</button>
+<button id="start-button" style="display: block; margin: auto; padding: 20px 40px; font-size: 24px; font-weight: bold; background-color: #FF0000; color: white; border: none; cursor: pointer; border-radius: 8px; transition: background-color 0.3s ease;" onmouseover="this.style.backgroundColor='#CC0000'" onmouseout="this.style.backgroundColor='#FF0000'">Play the playlist</button>
 <br>
 <div style="display: flex; justify-content: center; align-items: center;">
-    <div id="previous-button" style="font-size: 48px; cursor: pointer; margin: 0 10px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">⏮️</div>
-    <div id="next-button" style="font-size: 48px; cursor: pointer; margin: 0 10px;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">⏭️</div>
+    <div id="previous-button" style="font-size: 48px; cursor: pointer; margin: 0 10px; opacity: 0.5; pointer-events: none;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">⏮️</div>
+    <div id="next-button" style="font-size: 48px; cursor: pointer; margin: 0 10px; opacity: 0.5; pointer-events: none;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'" onmousedown="this.style.transform='scale(0.95)'" onmouseup="this.style.transform='scale(1)'">⏭️</div>
 </div>
 <p style="text-align: center; margin-top: 20px; font-size: 24px; color: #666;">For a complete experience please avoid skipping</p>
 
@@ -34,6 +34,8 @@
         {"videoId":"pX1eFNrMSoQ","start":11,"end":24.3}, // כמו כולם
         {"videoId":"dauW62xmwZQ","start":137.5,"end":141.8}, // הכל עוד לפניי
         {"videoId":"gP6PS-poyMg","start":33,"end":47}, // אני ואתה
+
+        {"videoId":"N3I6cLrTvps","start":53.9,"end":57.4}, // קמתי שחר חיון
         
         {"videoId":"tFEUH-tHeXE","start":114,"end":122.6}, // אין כמוך בעולם
         {"videoId":"aqZMHUEE3uA","start":32,"end":46}, // ברבאבא
@@ -84,8 +86,11 @@
 
     var currentId = 0;
 
-    var updateButton = document.getElementById('update-button');
-    updateButton.addEventListener('click', function(event) {
+    var startButton = document.getElementById('start-button');
+    startButton.addEventListener('click', function(event) {
+        activateElement("video-youtube");
+        activateElement("previous-button");
+        activateElement("next-button");
         currentId = 0;
         player.loadVideoById({
             'videoId': playList[currentId].videoId,
@@ -147,6 +152,10 @@
         }
     }
 
+    function activateElement(elementId){
+        document.getElementById(elementId).style.opacity = '1';
+        document.getElementById(elementId).style.pointerEvents = 'auto';
+    }
 
     var nextButton = document.getElementById('next-button');
     nextButton.addEventListener('click', goToNext);
